@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from .form import CategoryForm, ProductForm, SupplierForm, OrderForm, CustomerForm
+from django.shortcuts import render
+from .models import Product, Order
 
 def home(request):
     return render(request, 'home.html')
 
+def product_list(request):
+    products = Product.objects.all()  
+    orders = Order.objects.all()      
+    return render(request, 'product_list.html', {'products': products, 'orders': orders})
 def add_category(request):
     form = CategoryForm(request.POST or None)
     if form.is_valid():
